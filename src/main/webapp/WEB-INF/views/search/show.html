@@ -1,8 +1,20 @@
 <div xmlns:th="http://www.thymeleaf.org">
+    
     <form method="POST" liferay:action="javax.portlet.action='find', lifecycle='ACTION_PHASE'">
         <input type="text" name="query" />
         <input type="submit" th:value="#{search.find}" />
     </form>
 
-    <div th:include="${entries.isEmpty() ? '_empty' : '_result'}" />
+    <div th:unless="${entries.isEmpty()}">
+        <ul>
+            <li th:each="entry : ${entries}" th:object="${entry.content}">
+                <a href="#" liferay:href="course_code=*{code}">
+                    <span th:text="*{name}"></span> (<span th:text="*{code}"></span>)
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div th:if="${entries.isEmpty()}">
+        <p th:text="#{search.no_course_found}"></p>
+    </div>
 </div>
