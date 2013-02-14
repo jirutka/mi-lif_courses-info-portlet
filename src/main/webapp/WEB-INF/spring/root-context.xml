@@ -36,6 +36,9 @@
         <bean class="cz.cvut.portal.kos.services.support.AuthorizeHttpRequestInterceptor"
               p:username="${kosapi.username}"
               p:password="${kosapi.password}" />
+
+        <!-- Add Accept-Language header according to current user's portal locale -->
+        <bean class="cz.cvut.portal.kos.services.support.LocalizeHttpRequestInterceptor" />
         
         <!-- Log all requests -->
         <bean class="cz.cvut.portal.kos.services.support.LogHttpRequestInterceptor" />
