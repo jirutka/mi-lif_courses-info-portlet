@@ -1,7 +1,7 @@
 <div xmlns:th="http://www.thymeleaf.org">
     <form method="POST" liferay:action="javax.portlet.action='find', lifecycle='ACTION_PHASE'">
         <input type="text" name="query" />
-        <input type="submit" value="Find" />
+        <input type="submit" th:value="#{search.find}" />
     </form>
 
     <div th:include="${entries.isEmpty() ? '_empty' : '_result'}" />

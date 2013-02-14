@@ -11,13 +11,17 @@
 
     <context:component-scan base-package="cz.cvut.portal.kos.portlet.search" />
 
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+          p:basename="cz.cvut.portal.kos.portlet.messages" />
+    
     <bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver"
           p:templateEngine-ref="templateEngine"
           p:contentType="text/html;charset=UTF-8" />
 
     <bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine"
           p:additionalDialects-ref="thymeleafDialects"
-          p:templateResolver-ref="templateResolver" />
+          p:templateResolver-ref="templateResolver"
+          p:messageSource-ref="messageSource" />
 
     <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"
           p:prefix="/WEB-INF/views/search/"
