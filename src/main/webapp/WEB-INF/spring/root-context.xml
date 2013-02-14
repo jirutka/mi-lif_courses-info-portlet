@@ -10,6 +10,41 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+    <context:annotation-config />
+    <context:property-placeholder location="/WEB-INF/kosapi-service.properties" />
+
     
+    <!--///// KOSapi client /////-->
+
+    <bean id="kosapiService" class="cz.cvut.portal.kos.services.RestKOSapiService"
+          p:restTemplate-ref="restTemplate" />
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" 
+          p:messageConverters-ref="restConverters"
+          p:interceptors-ref="restInterceptors" />
+
+    <util:list id="restConverters">
+        <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"
+              p:marshaller-ref="jaxb2Marshaller"
+              p:unmarshaller-ref="jaxb2Marshaller" />
+    </util:list>
+
+    <util:list id="restInterceptors">
+        <!-- Add Authorization header -->
+        <bean class="cz.cvut.portal.kos.services.support.AuthorizeHttpRequestInterceptor"
+              p:username="${kosapi.username}"
+              p:password="${kosapi.password}" />
+        
+        <!-- Log all requests -->
+        <bean class="cz.cvut.portal.kos.services.support.LogHttpRequestInterceptor" />
+    </util:list>
+
+    <oxm:jaxb2-marshaller id="jaxb2Marshaller">
+        <oxm:class-to-be-bound name="cz.jirutka.atom.jaxb.Entry" />
+        <oxm:class-to-be-bound name="cz.jirutka.atom.jaxb.Feed" />
+        <oxm:class-to-be-bound name="cz.cvut.portal.kos.model.Course" />
+    </oxm:jaxb2-marshaller>
 
 </beans>
