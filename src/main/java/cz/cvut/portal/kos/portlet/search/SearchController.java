@@ -1,13 +1,17 @@
 package cz.cvut.portal.kos.portlet.search;
 
-import java.util.Arrays;
+import cz.cvut.portal.kos.portlet.Constants.A;
+import cz.cvut.portal.kos.services.KOSapiService;
+import cz.jirutka.atom.jaxb.Entry;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
@@ -16,18 +20,30 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
+@SessionAttributes(A.entries)
 public class SearchController {
 
+    @Autowired
+    private KOSapiService kosapi;
+
+
     @RenderMapping
-    public String home(Locale locale, Model model) {
-        List<String> items = Arrays.asList("First item", "Second item", "Third item");
-        model.addAttribute("items", items);
-
-        return "search";
+    public String render() {
+        return "show";
     }
 
-    @ActionMapping(value="find")
-    public void find(ActionRequest request, ActionResponse response) {
-        System.out.println("Called find action with parameter: " + request.getParameter("query"));
+    @ActionMapping("find")
+    public void find(@RequestParam String query, @ModelAttribute(A.entries) List<Entry> entries) {
+        entries.clear();
+
+        if (StringUtils.isNotBlank(query)) {
+            entries.addAll(kosapi.findCoursesByCodeOrName(query));
+        }
     }
+
+    @ModelAttribute(A.entries)
+    public List<Entry> populateDefaultEntries() {
+        return new ArrayList<Entry>();
+    }
+
 }

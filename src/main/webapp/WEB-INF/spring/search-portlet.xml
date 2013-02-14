@@ -20,7 +20,7 @@
           p:templateResolver-ref="templateResolver" />
 
     <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"
-          p:prefix="/WEB-INF/views/"
+          p:prefix="/WEB-INF/views/search/"
           p:suffix=".html"
           p:templateMode="HTML5" />
     

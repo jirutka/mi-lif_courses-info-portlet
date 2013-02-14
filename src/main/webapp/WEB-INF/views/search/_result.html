@@ -1,0 +1,9 @@
+<div>
+    <ul>
+        <li th:each="entry : ${entries}" th:object="${entry.content}">
+            <a href="#" liferay:href="course_code=*{code}">
+                <span th:text="*{name}"></span> (<span th:text="*{code}"></span>)
+            </a>
+        </li>
+    </ul>
+</div>
