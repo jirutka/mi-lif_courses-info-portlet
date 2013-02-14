@@ -25,6 +25,40 @@
             <title>Courses Search</title>
             <short-title>courses-search</short-title>
         </portlet-info>
+        
+        <supported-public-render-parameter>course_code</supported-public-render-parameter>
     </portlet>
+
+    <portlet>
+        <portlet-name>courses-info-detail</portlet-name>
+
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/spring/detail-portlet.xml</value>
+        </init-param>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <supported-locale>en</supported-locale>
+        <supported-locale>cs</supported-locale>
+
+        <portlet-info>
+            <title>Courses Detail</title>
+            <short-title>courses-detail</short-title>
+        </portlet-info>
+
+        <supported-public-render-parameter>course_code</supported-public-render-parameter>
+    </portlet>
+
+    <default-namespace>cz.cvut.portal.kos.portlet</default-namespace>
+
+    <public-render-parameter>
+        <identifier>course_code</identifier>
+        <name>course_code</name>
+    </public-render-parameter>
 
 </portlet-app>

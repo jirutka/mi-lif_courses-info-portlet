@@ -1,0 +1,48 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    
+    <div th:if="${course.code}" th:object="${course}">
+        <h1 th:text="*{name}"></h1>
+
+        <table>
+            <tr>
+                <td th:text="#{course.code}"></td>
+                <td th:text="*{code}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{course.department}"></td>
+                <td th:text="*{department}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{course.credits}"></td>
+                <td th:text="*{credits}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{course.completion}"></td>
+                <td th:text="*{completion}"></td>
+            </tr>
+            <tr th:if="*{range}">
+                <td th:text="#{course.range}"></td>
+                <td th:text="*{range}"></td>
+            </tr>
+            <tr th:if="*{studyForm}">
+                <td th:text="#{course.studyForm}"></td>
+                <td th:text="*{studyForm}"></td>
+            </tr>
+            <tr th:if="*{keywords}">
+                <td th:text="#{course.keywords}"></td>
+                <td th:text="*{keywords}"></td>
+            </tr>
+            <tr th:if="*{note}">
+                <td th:text="#{course.note}"></td>
+                <td th:text="*{note}"></td>
+            </tr>
+            <tr th:if="*{season}">
+                <td th:text="#{course.season}"></td>
+                <td th:text="*{season}"></td>
+            </tr>
+        </table>
+    </div>
+    <div th:unless="${course.code}">
+        <p th:text="#{detail.no_course}"></p>
+    </div>
+</div>

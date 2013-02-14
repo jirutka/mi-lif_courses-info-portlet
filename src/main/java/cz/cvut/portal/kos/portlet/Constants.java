@@ -11,13 +11,16 @@ public final class Constants {
      */
     public class A {
         public static final String 
-                entries = "entries";
+                entries = "entries",
+                course = "course";
     }
 
     /**
      * Render parameters
      */
     public class P {
+        public static final String 
+                course_code = "course_code";
     }
 
     private Constants() {}

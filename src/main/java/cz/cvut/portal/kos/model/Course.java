@@ -1,5 +1,6 @@
 package cz.cvut.portal.kos.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  * 
  * @author Jakub Jirutka <jakub@jirutka.cz>
  */
-public class Course {
+public class Course implements Serializable {
 
     private Integer allowedEnrollmentCount;
     private Date approvalDate;

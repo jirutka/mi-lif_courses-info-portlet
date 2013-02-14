@@ -9,4 +9,10 @@
         <ajaxable>false</ajaxable>
     </portlet>
 
+    <portlet>
+        <portlet-name>courses-info-detail</portlet-name>
+        <instanceable>true</instanceable>
+        <ajaxable>false</ajaxable>
+    </portlet>
+
 </liferay-portlet-app>

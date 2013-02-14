@@ -4,5 +4,6 @@
 <display>
     <category name="category.sample">
         <portlet id="courses-info-search" />
+        <portlet id="courses-info-detail" />
     </category>
 </display>
