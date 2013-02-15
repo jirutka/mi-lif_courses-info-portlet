@@ -3,6 +3,7 @@ package cz.cvut.portal.kos.portlet.detail;
 import cz.cvut.portal.kos.model.Course;
 import cz.cvut.portal.kos.portlet.Constants.A;
 import cz.cvut.portal.kos.portlet.Constants.P;
+import cz.cvut.portal.kos.portlet.PortletMode;
 import cz.cvut.portal.kos.services.KOSapiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  * @author Jakub Jirutka <jakub@jirutka.cz>
  */
 @Controller
-@RequestMapping("VIEW")
+@RequestMapping(PortletMode.VIEW)
 @SessionAttributes(A.course)
 public class DetailController {
 

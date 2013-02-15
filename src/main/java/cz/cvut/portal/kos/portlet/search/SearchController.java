@@ -1,6 +1,7 @@
 package cz.cvut.portal.kos.portlet.search;
 
 import cz.cvut.portal.kos.portlet.Constants.A;
+import cz.cvut.portal.kos.portlet.PortletMode;
 import cz.cvut.portal.kos.services.KOSapiService;
 import cz.jirutka.atom.jaxb.Entry;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  * @author Jakub Jirutka
  */
 @Controller
-@RequestMapping("VIEW")
+@RequestMapping(PortletMode.VIEW)
 @SessionAttributes(A.entries)
 public class SearchController {
 

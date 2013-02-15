@@ -1,6 +1,7 @@
 package cz.cvut.portal.kos.portlet.search;
 
 import cz.cvut.portal.kos.portlet.Constants.A;
+import cz.cvut.portal.kos.portlet.PortletMode;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  * @author Jakub Jirutka <jakub@jirutka.cz>
  */
 @Controller
-@RequestMapping("EDIT")
+@RequestMapping(PortletMode.EDIT)
 public class EditController {
 
     @RenderMapping
