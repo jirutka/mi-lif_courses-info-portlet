@@ -14,28 +14,27 @@ import javax.validation.constraints.Min;
  *
  * @author Jakub Jirutka <jakub@jirutka.cz>
  */
-public class Preferences implements Serializable {
+public class SearchPreferences implements Serializable {
 
     @Min(1) @Max(20)
     private Integer itemsPerPage;
 
 
-    protected Preferences() {
+    protected SearchPreferences() {
     }
-    protected Preferences(PortletPreferences preferences) {
+    protected SearchPreferences(PortletPreferences preferences) {
         itemsPerPage = Integer.valueOf(preferences.getValue("itemsPerPage", null));
     }
     
     
-    public static Preferences load() {
-        return new Preferences(getPortletPreferences());
+    public static SearchPreferences load() {
+        return new SearchPreferences(getPortletPreferences());
     }
     
     public void save() {
         PortletPreferences pref = getPortletPreferences();
         try {
             pref.setValue("itemsPerPage", itemsPerPage.toString());
-            System.out.println("Saving " + itemsPerPage);
             pref.store();
             
         // multi-catch in Java 7 is pretty cool, huh? ;)

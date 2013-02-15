@@ -17,17 +17,17 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping(PortletMode.EDIT)
-public class EditController {
+public class EditSearchController {
 
     @RenderMapping
     public String render(Model model) {
-        model.addAttribute(A.pref, Preferences.load());
+        model.addAttribute(A.pref, SearchPreferences.load());
 
         return "edit";
     }
 
     @ActionMapping
-    public void update(@Valid Preferences preferences, BindingResult result, Model model) {
+    public void update(@Valid SearchPreferences preferences, BindingResult result, Model model) {
         if (! result.hasErrors()) {
             preferences.save();
         }

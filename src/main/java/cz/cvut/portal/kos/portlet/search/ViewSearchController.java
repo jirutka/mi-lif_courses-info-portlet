@@ -22,7 +22,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @Controller
 @RequestMapping(PortletMode.VIEW)
 @SessionAttributes(A.entries)
-public class SearchController {
+public class ViewSearchController {
 
     @Autowired
     private KOSapiService kosapi;
@@ -30,10 +30,10 @@ public class SearchController {
 
     @RenderMapping
     public String render() {
-        return "show";
+        return "view";
     }
 
-    @ActionMapping("find")
+    @ActionMapping
     public void find(@RequestParam String query, @ModelAttribute(A.entries) List<Entry> entries) {
         entries.clear();
 

@@ -21,7 +21,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @Controller
 @RequestMapping(PortletMode.VIEW)
 @SessionAttributes(A.course)
-public class DetailController {
+public class ViewDetailController {
 
     private static final Course NULL_COURSE = new Course();
 
@@ -31,14 +31,14 @@ public class DetailController {
     
     @RenderMapping
     public String renderDefault() {
-        return "show";
+        return "view";
     }
 
     @RenderMapping(params=P.course_code)
     public String renderShow(@RequestParam(value=P.course_code) String code, Model model) {
         model.addAttribute(A.course, kosapi.getCourse(code));
 
-        return "show";
+        return "view";
     }
 
     @ModelAttribute(A.course)
