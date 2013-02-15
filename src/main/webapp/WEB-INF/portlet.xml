@@ -16,6 +16,7 @@
         <supports>
             <mime-type>text/html</mime-type>
             <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
         </supports>
 
         <supported-locale>en</supported-locale>
@@ -25,6 +26,13 @@
             <title>Courses Search</title>
             <short-title>courses-search</short-title>
         </portlet-info>
+
+        <portlet-preferences>
+            <preference>
+                <name>itemsPerPage</name>
+                <value>5</value>
+            </preference>
+        </portlet-preferences>
         
         <supported-public-render-parameter>course_code</supported-public-render-parameter>
     </portlet>

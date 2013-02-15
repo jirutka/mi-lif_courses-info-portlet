@@ -1,0 +1,11 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+    <form method="POST" liferay:action="javax.portlet.action='update', portletMode='EDIT', lifecycle='ACTION_PHASE'">
+        <label for="itemsPerPage" th:text="#{search.items_per_page}" />
+
+        <select name="itemsPerPage" size="1" onchange="this.form.submit()">
+            <option th:each="value : ${#numbers.sequence(5,20,5)}" 
+                    th:value="${value}" th:text="${value}" th:selected="${value == pref.itemsPerPage}" />
+        </select>
+    </form>
+</div>

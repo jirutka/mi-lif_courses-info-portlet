@@ -10,6 +10,20 @@
 
     <!--///// Context common for all portlets /////-->
     
+
+    <!-- Enable JSR-303 Validator -->
+
+    <bean class="org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter"
+          p:webBindingInitializer-ref="webBindingInitializer" />
+
+    <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"
+          p:validator-ref="validator" />
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+
+    <!-- Configure Thymeleaf -->
+
     <bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver"
           p:templateEngine-ref="templateEngine"
           p:contentType="text/html;charset=UTF-8" />

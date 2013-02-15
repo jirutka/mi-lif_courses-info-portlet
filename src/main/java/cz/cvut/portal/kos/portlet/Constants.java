@@ -12,7 +12,8 @@ public final class Constants {
     public class A {
         public static final String 
                 entries = "entries",
-                course = "course";
+                course = "course",
+                pref = "pref";
     }
 
     /**
