@@ -5,16 +5,26 @@
         <input type="submit" th:value="#{search.find}" />
     </form>
 
-    <div th:unless="${entries.isEmpty()}">
+    <div th:if="${paginator.iterator().hasNext()}">
         <ul>
-            <li th:each="entry : ${entries}" th:object="${entry.content}">
+            <li th:each="course : ${paginator}" th:object="${course}">
                 <a liferay:href="course_code=*{code}">
-                    <span th:text="*{name}"></span> (<span th:text="*{code}"></span>)
+                    <span th:text="*{name}" /> (<span th:text="*{code}" />)
                 </a>
             </li>
         </ul>
+
+        <span th:switch="${paginator.isFirstPage()}">
+            <span th:case="${true}">&lt;&lt;</span>
+            <a th:case="${false}" liferay:href="action='goToPage', page=${paginator.prevPage()}">&lt;&lt;</a>
+        </span>
+
+        <span th:switch="${paginator.isLastPage()}">
+            <span th:case="${true}">&gt;&gt;</span>
+            <a th:case="${false}" liferay:href="action='goToPage', page=${paginator.nextPage()}">&gt;&gt;</a>
+        </span>
     </div>
-    <div th:if="${entries.isEmpty()}">
-        <p th:text="#{search.no_course_found}"></p>
+    <div th:unless="${paginator.iterator().hasNext()}">
+        <p th:text="#{search.no_course_found}" />
     </div>
 </div>

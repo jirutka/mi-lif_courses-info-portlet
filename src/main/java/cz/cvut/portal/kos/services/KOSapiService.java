@@ -1,8 +1,7 @@
 package cz.cvut.portal.kos.services;
 
 import cz.cvut.portal.kos.model.Course;
-import cz.jirutka.atom.jaxb.Entry;
-import java.util.List;
+import cz.cvut.portal.kos.services.support.Paginator;
 
 /**
  *
@@ -10,9 +9,7 @@ import java.util.List;
  */
 public interface KOSapiService {
 
-    List<Entry<Course>> findCoursesByCodeOrName(String codeOrName);
-    
-    List<Entry<Course>> findCoursesWithRSQL(String query);
+    Paginator<Course> findCoursesByCodeOrName(String codeOrName);
 
     Course getCourse(String code);
 

@@ -1,14 +1,15 @@
 package cz.cvut.portal.kos.portlet.search;
 
+import cz.cvut.portal.kos.model.Course;
+import cz.cvut.portal.kos.services.support.Paginator;
+import cz.cvut.portal.kos.services.support.ListPaginator;
 import cz.cvut.portal.kos.portlet.Constants.A;
 import cz.cvut.portal.kos.portlet.PortletMode;
 import cz.cvut.portal.kos.services.KOSapiService;
-import cz.jirutka.atom.jaxb.Entry;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping(PortletMode.VIEW)
-@SessionAttributes(A.entries)
+@SessionAttributes(A.paginator)
 public class ViewSearchController {
 
     @Autowired
@@ -33,18 +34,27 @@ public class ViewSearchController {
         return "view";
     }
 
-    @ActionMapping
-    public void find(@RequestParam String query, @ModelAttribute(A.entries) List<Entry> entries) {
-        entries.clear();
+    @ActionMapping("find")
+    public void find(@RequestParam String query, Model model) {
+        Paginator<Course> paginator;
 
         if (StringUtils.isNotBlank(query)) {
-            entries.addAll(kosapi.findCoursesByCodeOrName(query));
+            paginator = kosapi.findCoursesByCodeOrName(query);
+            paginator.setItemsPerPage(SearchPreferences.load().getItemsPerPage());
+        } else {
+            paginator = ListPaginator.emptyList();
         }
+        model.addAttribute(A.paginator, paginator);
     }
 
-    @ModelAttribute(A.entries)
-    public List<Entry> populateDefaultEntries() {
-        return new ArrayList<Entry>();
+    @ActionMapping("goToPage")
+    public void goToPage(@RequestParam int page, @ModelAttribute(A.paginator) Paginator<Course> paginator) {
+        paginator.goToPage(page);
     }
 
+    @ModelAttribute(A.paginator)
+    public Paginator<Course> populateEmptyPaginator() {
+        return ListPaginator.emptyList();
+    }
+    
 }

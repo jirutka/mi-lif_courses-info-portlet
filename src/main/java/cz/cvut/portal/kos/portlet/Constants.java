@@ -11,7 +11,7 @@ public final class Constants {
      */
     public class A {
         public static final String 
-                entries = "entries",
+                paginator = "paginator",
                 course = "course",
                 pref = "pref";
     }
