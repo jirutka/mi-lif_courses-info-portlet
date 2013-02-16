@@ -14,6 +14,7 @@
     <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"
           p:prefix="/WEB-INF/views/detail/"
           p:suffix=".html"
-          p:templateMode="HTML5" />
+          p:templateMode="HTML5"
+          p:cacheable="${thymeleaf.cacheable}" />
 
 </beans>
