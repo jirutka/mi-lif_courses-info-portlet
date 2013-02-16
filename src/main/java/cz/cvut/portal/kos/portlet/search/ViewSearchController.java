@@ -29,7 +29,6 @@ import cz.cvut.portal.kos.services.support.ListPaginator;
 import cz.cvut.portal.kos.portlet.Constants.A;
 import cz.cvut.portal.kos.portlet.PortletMode;
 import cz.cvut.portal.kos.services.KOSapiService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,11 +60,12 @@ public class ViewSearchController {
     public void find(@RequestParam String query, Model model) {
         Paginator<Course> paginator;
 
-        if (StringUtils.isNotBlank(query)) {
+        try {
             paginator = kosapi.findCoursesByCodeOrName(query);
             paginator.setItemsPerPage(SearchPreferences.load().getItemsPerPage());
-        } else {
-            paginator = ListPaginator.emptyList();
+            
+        } catch (IllegalArgumentException ex) {
+            paginator = populateEmptyPaginator();
         }
         model.addAttribute(A.paginator, paginator);
     }
@@ -79,5 +79,5 @@ public class ViewSearchController {
     public Paginator<Course> populateEmptyPaginator() {
         return ListPaginator.emptyList();
     }
-    
+
 }

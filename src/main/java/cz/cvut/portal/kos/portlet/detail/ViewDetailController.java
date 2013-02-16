@@ -28,13 +28,16 @@ import cz.cvut.portal.kos.portlet.Constants.A;
 import cz.cvut.portal.kos.portlet.Constants.P;
 import cz.cvut.portal.kos.portlet.PortletMode;
 import cz.cvut.portal.kos.services.KOSapiService;
+import javax.portlet.PortletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
@@ -67,6 +70,13 @@ public class ViewDetailController {
     @ModelAttribute(A.course)
     public Course populateDefaultCourse() {
         return NULL_COURSE;
+    }
+
+    @ExceptionHandler
+    public String handleNotFound(HttpClientErrorException exception, PortletRequest request) {
+        request.setAttribute(A.error, exception);
+
+        return "error";
     }
 
 }

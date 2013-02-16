@@ -36,7 +36,8 @@ public final class Constants {
         public static final String 
                 paginator = "paginator",
                 course = "course",
-                pref = "pref";
+                pref = "pref",
+                error = "error";
     }
 
     /**

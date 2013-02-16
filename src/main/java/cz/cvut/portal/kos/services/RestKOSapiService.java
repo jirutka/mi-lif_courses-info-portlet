@@ -32,6 +32,7 @@ import cz.jirutka.atom.jaxb.Entry;
 import cz.jirutka.atom.jaxb.Feed;
 import java.net.URI;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,6 +44,7 @@ public class RestKOSapiService implements KOSapiService {
 
     private static final String PARAM_LIMIT = "limit";
     private static final String PARAM_OFFSET = "offset";
+    private static final char[] ILLEGAL_CHARS = {'\'', '"', '&', '?'};
 
     private RestTemplate rest;
 
@@ -55,8 +57,9 @@ public class RestKOSapiService implements KOSapiService {
 
     
     public Paginator<Course> findCoursesByCodeOrName(final String codeOrName) {
-        return new ListPaginator<>(new DataFetcher<Course>() {
+        validateArgument(codeOrName);
 
+        return new ListPaginator<>(new DataFetcher<Course>() {
             public List<Course> fetchPage(int itemsPerPage, int startIndex) {
                 URI url = path(coursesQuerySimpleUri)
                             .expand("query", codeOrName)
@@ -70,15 +73,27 @@ public class RestKOSapiService implements KOSapiService {
     }
 
     public Course getCourse(String code) {
-        Entry<Course> entry = rest.getForObject(path(coursesGetUri).expand("code", code).build(), Entry.class);
+        validateArgument(code);
+
+        URI url = path(coursesGetUri).expand("code", code).build();
+        Entry<Course> entry = rest.getForObject(url, Entry.class);
 
         return entry != null ? entry.getContent() : null;
     }
+
 
     private UriBuilder path(String path) {
         return UriBuilder.fromBase(baseUri).path(path);
     }
 
+    private void validateArgument(String str) {
+        if (StringUtils.isBlank(str)) {
+            throw new IllegalArgumentException("Argument is blank");
+        }
+        if (StringUtils.containsAny(str, ILLEGAL_CHARS)) {
+            throw new IllegalArgumentException("Argument contains illegal characters");
+        }
+    }
 
     ////////  Accessors  ////////
 
