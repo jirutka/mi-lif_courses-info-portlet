@@ -1,6 +1,6 @@
 <div xmlns:th="http://www.thymeleaf.org">
 
-    <form method="POST" liferay:action="javax.portlet.action='update', portletMode='EDIT', lifecycle='ACTION_PHASE'">
+    <form method="POST" liferay:action="action='update', portletMode='edit'">
         <label for="itemsPerPage" th:text="#{search.items_per_page}" />
 
         <select name="itemsPerPage" size="1" onchange="this.form.submit()">

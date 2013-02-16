@@ -1,6 +1,6 @@
 <div xmlns:th="http://www.thymeleaf.org">
     
-    <form method="POST" liferay:action="javax.portlet.action='find', lifecycle='ACTION_PHASE'">
+    <form method="POST" liferay:action="action='find'">
         <input type="text" name="query" />
         <input type="submit" th:value="#{search.find}" />
     </form>
