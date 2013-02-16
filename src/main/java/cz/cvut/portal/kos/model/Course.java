@@ -55,6 +55,13 @@ public class Course implements Serializable {
     private String season;
     private String studyForm;
 
+    private String description;
+    private String lecturesContents;
+    private String literature;
+    private String objectives;
+    private String requirements;
+    private String tutorialsContents;
+
     
     /**
      * Povolený počet zapsání předmětu určuje, kolikrát za studium si student
@@ -130,5 +137,31 @@ public class Course implements Serializable {
      * @return forma studia, pro kterou je předmět určen
      */
     public String getStudyForm() { return studyForm; }
+
+
+    /**
+     * @return anotace předmětu
+     */
+    public String getDescription() { return description; }
+    /**
+     * @return osnova přednášek
+     */
+    public String getLecturesContents() { return lecturesContents; }
+    /**
+     * @return seznam doporučené literatury
+     */
+    public String getLiterature() { return literature; }
+    /**
+     * @return cíle předmětu
+     */
+    public String getObjectives() { return objectives; }
+    /**
+     * @return požadavky
+     */
+    public String getRequirements() { return requirements; }
+    /**
+     * @return osnova cvičení
+     */
+    public String getTutorialsContents() { return tutorialsContents; }
 
 }

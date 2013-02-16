@@ -37,7 +37,8 @@ public final class Constants {
                 paginator = "paginator",
                 course = "course",
                 pref = "pref",
-                error = "error";
+                error = "error",
+                detail = "detail";
     }
 
     /**
@@ -45,7 +46,8 @@ public final class Constants {
      */
     public class P {
         public static final String 
-                course_code = "course_code";
+                course_code = "course_code",
+                detail = "detail";
     }
 
     private Constants() {}

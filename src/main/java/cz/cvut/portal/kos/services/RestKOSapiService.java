@@ -72,13 +72,16 @@ public class RestKOSapiService implements KOSapiService {
         });
     }
 
-    public Course getCourse(String code) {
+    public Course getCourse(String code, int detailLevel) {
         validateArgument(code);
 
-        URI url = path(coursesGetUri).expand("code", code).build();
-        Entry<Course> entry = rest.getForObject(url, Entry.class);
+        URI url = path(coursesGetUri)
+                    .expand("code", code)
+                    .queryParam("detail", detailLevel)
+                    .build();
 
-        return entry != null ? entry.getContent() : null;
+        Entry<Course> entry = rest.getForObject(url, Entry.class);
+        return entry.getContent();
     }
 
 

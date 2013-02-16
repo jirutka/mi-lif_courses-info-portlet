@@ -32,8 +32,17 @@ import cz.cvut.portal.kos.services.support.Paginator;
  */
 public interface KOSapiService {
 
+    /**
+     * @param codeOrName course code or part of its name
+     * @return paginated courses list
+     */
     Paginator<Course> findCoursesByCodeOrName(String codeOrName);
 
-    Course getCourse(String code);
+    /**
+     * @param code course code
+     * @param detailLevel 0: base information, 1: including long texts
+     * @return Course
+     */
+    Course getCourse(String code, int detailLevel);
 
 }

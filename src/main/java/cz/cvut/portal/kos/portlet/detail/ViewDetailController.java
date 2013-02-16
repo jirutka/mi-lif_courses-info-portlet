@@ -61,8 +61,15 @@ public class ViewDetailController {
     }
 
     @RenderMapping(params=P.course_code)
-    public String renderShow(@RequestParam(value=P.course_code) String code, Model model) {
-        model.addAttribute(A.course, kosapi.getCourse(code));
+    public String renderShow(
+            @RequestParam(P.course_code) String code,
+            @RequestParam(value=P.detail, defaultValue="0") int detail,
+            Model model) {
+
+        Course course = kosapi.getCourse(code, detail);
+        
+        model.addAttribute(A.course, course);
+        model.addAttribute(A.detail, detail);
 
         return "view";
     }

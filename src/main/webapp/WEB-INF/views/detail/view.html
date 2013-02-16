@@ -3,44 +3,75 @@
     <div th:if="${course.code}" th:object="${course}">
         <h1 th:text="*{name}"></h1>
 
-        <table>
+        <table style="border-collapse: separate; border-spacing: 0.7em;">
             <tr>
-                <td th:text="#{course.code}"></td>
-                <td th:text="*{code}"></td>
+                <th th:text="#{course.code}" style="width: 15%;" />
+                <td th:text="*{code}" />
             </tr>
             <tr>
-                <td th:text="#{course.department}"></td>
-                <td th:text="*{department}"></td>
+                <th th:text="#{course.department}" />
+                <td th:text="*{department}" />
             </tr>
             <tr>
-                <td th:text="#{course.credits}"></td>
-                <td th:text="*{credits}"></td>
+                <th th:text="#{course.credits}" />
+                <td th:text="*{credits}" />
             </tr>
             <tr>
-                <td th:text="#{course.completion}"></td>
-                <td th:text="*{completion}"></td>
+                <th th:text="#{course.completion}" />
+                <td th:text="*{completion}" />
             </tr>
             <tr th:if="*{range}">
-                <td th:text="#{course.range}"></td>
-                <td th:text="*{range}"></td>
+                <th th:text="#{course.range}" />
+                <td th:text="*{range}" />
             </tr>
             <tr th:if="*{studyForm}">
-                <td th:text="#{course.studyForm}"></td>
-                <td th:text="*{studyForm}"></td>
+                <th th:text="#{course.studyForm}" />
+                <td th:text="*{studyForm}" />
             </tr>
             <tr th:if="*{keywords}">
-                <td th:text="#{course.keywords}"></td>
-                <td th:text="*{keywords}"></td>
+                <th th:text="#{course.keywords}" />
+                <td th:text="*{keywords}" />
             </tr>
             <tr th:if="*{note}">
-                <td th:text="#{course.note}"></td>
-                <td th:text="*{note}"></td>
+                <th th:text="#{course.note}" />
+                <td th:text="*{note}" />
             </tr>
             <tr th:if="*{season}">
-                <td th:text="#{course.season}"></td>
-                <td th:text="*{season}"></td>
+                <th th:text="#{course.season}" />
+                <td th:text="*{season}" />
+            </tr>
+
+            <tr th:if="*{description}">
+                <th th:text="#{course.description}" />
+                <td th:text="*{description}" />
+            </tr>
+            <tr th:if="*{objectives}">
+                <th th:text="#{course.objectives}" />
+                <td th:text="*{objectives}" />
+            </tr>
+            <tr th:if="*{requirements}">
+                <th th:text="#{course.requirements}" />
+                <td th:text="*{requirements}" />
+            </tr>
+            <tr th:if="*{lecturesContents}">
+                <th th:text="#{course.lecturesContents}" />
+                <td th:text="*{lecturesContents}" />
+            </tr>
+            <tr th:if="*{tutorialsContents}">
+                <th th:text="#{course.tutorialsContents}" />
+                <td th:text="*{tutorialsContents}" />
+            </tr>
+            <tr th:if="*{literature}">
+                <th th:text="#{course.literature}" />
+                <td th:text="*{literature}" />
             </tr>
         </table>
+
+        <div th:switch="${detail}" style="text-align: center;">
+            <a th:case="0" liferay:href="course_code=*{code}, detail=1" th:text="#{detail.load_more}" />
+            <a th:case="1" liferay:href="course_code=*{code}, detail=0" th:text="#{detail.show_less}" />
+        </div>
+
     </div>
     <div th:unless="${course.code}">
         <p th:text="#{detail.no_course}"></p>
