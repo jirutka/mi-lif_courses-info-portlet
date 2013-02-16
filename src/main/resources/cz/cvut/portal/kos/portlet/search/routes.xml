@@ -33,4 +33,10 @@
         <implicit-parameter name="p_p_mode">edit</implicit-parameter>
         <implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
     </route>
+
+    <route>
+        <pattern>/help</pattern>
+        <implicit-parameter name="p_p_mode">help</implicit-parameter>
+        <implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
+    </route>
 </routes>
