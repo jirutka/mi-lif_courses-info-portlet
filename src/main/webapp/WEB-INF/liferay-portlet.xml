@@ -16,6 +16,11 @@
 
     <portlet>
         <portlet-name>courses-info-detail</portlet-name>
+
+        <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
+        <friendly-url-mapping>courses-detail</friendly-url-mapping>
+        <friendly-url-routes>cz/cvut/portal/kos/portlet/detail/routes.xml</friendly-url-routes>
+
         <instanceable>false</instanceable>
         <ajaxable>false</ajaxable>
     </portlet>

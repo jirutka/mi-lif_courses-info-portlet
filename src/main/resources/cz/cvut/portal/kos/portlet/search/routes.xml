@@ -3,7 +3,7 @@
     "-//Liferay//DTD Friendly URL Routes 6.1.0//EN" "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_1_0.dtd">
 <routes>
     <route>
-        <pattern>/view/courses/{course_code}</pattern>
+        <pattern>/view/course/{course_code}</pattern>
         <implicit-parameter name="p_p_mode">view</implicit-parameter>
         <implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
     </route>
