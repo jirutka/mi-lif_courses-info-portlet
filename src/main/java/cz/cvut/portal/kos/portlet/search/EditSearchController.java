@@ -23,6 +23,7 @@
  */
 package cz.cvut.portal.kos.portlet.search;
 
+import cz.cvut.portal.kos.model.SearchPreferences;
 import cz.cvut.portal.kos.portlet.Constants.A;
 import cz.cvut.portal.kos.portlet.PortletMode;
 import javax.validation.Valid;

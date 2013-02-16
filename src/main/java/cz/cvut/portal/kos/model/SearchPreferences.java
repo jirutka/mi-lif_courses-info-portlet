@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package cz.cvut.portal.kos.portlet.search;
+package cz.cvut.portal.kos.model;
 
 import cz.cvut.portal.kos.utils.PortalRequestAccessor;
 import java.io.IOException;

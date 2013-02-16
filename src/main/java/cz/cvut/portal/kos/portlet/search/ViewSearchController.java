@@ -23,6 +23,7 @@
  */
 package cz.cvut.portal.kos.portlet.search;
 
+import cz.cvut.portal.kos.model.SearchPreferences;
 import cz.cvut.portal.kos.model.Course;
 import cz.cvut.portal.kos.services.support.Paginator;
 import cz.cvut.portal.kos.services.support.ListPaginator;
