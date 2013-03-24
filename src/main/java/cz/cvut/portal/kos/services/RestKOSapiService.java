@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -46,7 +47,7 @@ public class RestKOSapiService implements KOSapiService {
     private static final String PARAM_OFFSET = "offset";
     private static final char[] ILLEGAL_CHARS = {'\'', '"', '&', '?'};
 
-    private RestTemplate rest;
+    private RestOperations rest;
 
     // will be set from properties file
     private @Value("${kosapi.uri.base}") String baseUri;
@@ -66,8 +67,9 @@ public class RestKOSapiService implements KOSapiService {
                             .queryParam(PARAM_LIMIT, itemsPerPage)
                             .queryParam(PARAM_OFFSET, startIndex)
                             .build();
-                
-                return rest.getForObject(url, Feed.class).getContents();
+
+                // pass as String to perform encoding
+                return rest.getForObject(url.toString(), Feed.class).getContents();
             }
         });
     }
@@ -80,7 +82,8 @@ public class RestKOSapiService implements KOSapiService {
                     .queryParam("detail", detailLevel)
                     .build();
 
-        Entry<Course> entry = rest.getForObject(url, Entry.class);
+        // pass as String to perform encoding
+        Entry<Course> entry = rest.getForObject(url.toString(), Entry.class);
         return entry.getContent();
     }
 
