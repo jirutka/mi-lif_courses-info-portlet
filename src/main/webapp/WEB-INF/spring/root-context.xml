@@ -2,12 +2,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
        xmlns:oxm="http://www.springframework.org/schema/oxm"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-1.0.xsd
        http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
@@ -16,14 +18,23 @@
     <context:property-placeholder location="/WEB-INF/kosapi-service.properties" />
 
     
-    <!--///// KOSapi client /////-->
+    <!--//////// KOSapi client ////////-->
 
     <bean id="kosapiService" class="cz.cvut.portal.kos.services.RestKOSapiService"
           p:restTemplate-ref="restTemplate" />
 
-    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" 
+    <!-- Client with OAuth2 -->
+    <bean id="restTemplate" class="org.springframework.security.oauth2.client.OAuth2RestTemplate">
+        <constructor-arg ref="kosapiResource" />
+        <property name="messageConverters" ref="restConverters" />
+        <property name="interceptors" ref="restInterceptors" />
+    </bean>
+
+    <!-- Client with HTTP Basic
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"
           p:messageConverters-ref="restConverters"
           p:interceptors-ref="restInterceptors" />
+    -->
 
     <util:list id="restConverters">
         <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"
@@ -32,10 +43,11 @@
     </util:list>
 
     <util:list id="restInterceptors">
-        <!-- Add Authorization header -->
+        <!-- Add Authorization header for HTTP Basic
         <bean class="cz.cvut.portal.kos.services.support.AuthorizeHttpRequestInterceptor"
               p:username="${kosapi.username}"
               p:password="${kosapi.password}" />
+        -->
 
         <!-- Add Accept-Language header according to current user's portal locale -->
         <bean class="cz.cvut.portal.kos.services.support.LocalizeHttpRequestInterceptor" />
@@ -49,5 +61,15 @@
         <oxm:class-to-be-bound name="cz.jirutka.atom.jaxb.Feed" />
         <oxm:class-to-be-bound name="cz.cvut.portal.kos.model.Course" />
     </oxm:jaxb2-marshaller>
+
+
+    <!-- OAuth2 resource details -->
+    <oauth:resource id="kosapiResource"
+            type="client_credentials"
+            client-id="${kosapi.oauth.client_id}"
+            client-secret="${kosapi.oauth.client_secret}"
+            access-token-uri="${kosapi.oauth.token_endpoint}"
+            client-authentication-scheme="form"
+            scope="${kosapi.oauth.scope}" />
 
 </beans>
